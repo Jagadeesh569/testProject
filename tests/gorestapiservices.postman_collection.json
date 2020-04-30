@@ -144,7 +144,7 @@
 							"",
 							"pm.test(\"verify gender\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.result.gender).to.eql(pm.environment.get(\"usergender\"));",
+							"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"usergender\"));",
 							"});",
 							""
 						],
@@ -188,17 +188,15 @@
 					}
 				},
 				"url": {
-					"raw": "https://gorest.co.in/public-api/users/18722",
+					"raw": "https://reqres.in/api/users",
 					"protocol": "https",
 					"host": [
-						"gorest",
-						"co",
+						"reqres",
 						"in"
 					],
 					"path": [
-						"public-api",
-						"users",
-						"18722"
+						"api",
+						"users"
 					]
 				}
 			},
