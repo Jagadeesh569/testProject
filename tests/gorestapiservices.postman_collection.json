@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "54c8ccc3-94e9-424e-ac59-8b5a88f83d74",
+		"name": "gorest api services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2be2abf2-8950-41e7-9dc5-f9be4e1e8252",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Verify Success value\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._meta.success).to.eql(true);",
+							"});",
+							"",
+							"pm.test(\"Verify Email iD \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.result.email).to.eql(pm.variables.get(\"emailaddress\"));",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "be8125e8-8d4b-48af-b39a-d46bfc874223",
+						"exec": [
+							"var random = Math.random().toString(36).substring(2);",
+							"var emailaddress = \"tom\"+random+\"@gmail.com\";",
+							"pm.environment.set(\"emailaddress\", emailaddress);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer jHQfgBru_xaZm1MyYvStCgE4KMsxTLGVRw-W ",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\":\"Tom\",\n\t\"last_name\":\"Hanks\",\n\t\"gender\":\"male\",\n\t\"dob\":\"01-01-1988\",\n\t\"email\":\"{{emailaddress}}\",\n\t\"phone\":\"5183641121\",\n\t\"address\":\"main st , new york\",\n\t\"website\":\"https://gorest.co.in\",\n\t\"status\":\"active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public-api/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public-api",
+						"users"
+					]
+				},
+				"description": "Create User"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb2bbc80-479a-4919-bd49-5663e1cc63b5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer jHQfgBru_xaZm1MyYvStCgE4KMsxTLGVRw-W",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://gorest.co.in/public-api/users/18722",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"18722"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8e62b0e-67dc-4d3d-ad5a-890c1df9beea",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"verify gender\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.result.gender).to.eql(pm.environment.get(\"usergender\"));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bdc4f09d-f3b2-4a74-acc0-94d4203c1d66",
+						"exec": [
+							"var usergender = \"male\";",
+							"pm.environment.set(\"usergender\", usergender);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer jHQfgBru_xaZm1MyYvStCgE4KMsxTLGVRw-W",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\"gender\":\"{{usergender}}\",\n\t\"dob\":\"01-01-1978\",\n\t\"status\":\"active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public-api/users/18722",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public-api",
+						"users",
+						"18722"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

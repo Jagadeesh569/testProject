@@ -1,0 +1,16 @@
+{
+  "name": "postmantraining",
+  "version": "1.0.0",
+  "description": "project for postman api with jenkins",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"api-test":"newman run tests/gorestapiservices.postman_collection.json"
+  },
+  "author": "Jagadeesh Javali",
+  "dependencies": {
+    "newman": "^5.0.0"
+  }
+}
